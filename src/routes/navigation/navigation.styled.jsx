@@ -35,13 +35,17 @@ export const NavigationBody = styled.div`
     align-items: center;
     justify-content: flex-end;
     @media ${device.mobileS}{
-        display: none
+        display: flex
     }
     @media ${device.tablet}{
         display:flex;
     }
 `
 
+export const MenuIcon = styled.div`
+    width: 50%;
+    height: 100%;
+`
 var mobile = styled(NavigationBody)`
     width:50%;
 `
