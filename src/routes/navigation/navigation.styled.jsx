@@ -6,40 +6,57 @@ export const NavigationContainer = styled.div`
     width:100%;
     height:80px;
     display:flex;
+    z-index: 2;
     flex-direction: column;
     justify-content: space-between;
     margin-botton:15px;
+    
+    @media ${device.mobileS}{
+        flex-direction: column;
 
-    @media ${device.tablet}{
-        flex-direction:row
     }
-    @media ${device.laptop}{
-        flex-direction:row
+    @media ${device.tablet}{
+        flex-direction: row;
     }
 
     
 `
 
 export const NavigationLogo = styled(Link)`
+    width: 59vh;
+    height:100%;
+    padding:10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media ${device.tablet}{
     width: 70px;
     height:100%;
     padding:10px;
     display: flex;
     align-items: center;
+    }
 `
 
 export const NavigationBody = styled.div`
-    width: 50%;
-    height: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: flex-end;
-    @media ${device.mobileS}{
-        display: flex
-    }
+    align-items: flex-start;
+    height: 100vh;
+    width: 100%;
+    z-index:1;
+    background: white;
+
     @media ${device.tablet}{
-        display:flex;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+        border: none;
+        width: 50%;
     }
+    
 `
 
 export const MenuIcon = styled.div`

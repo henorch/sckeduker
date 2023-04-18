@@ -6,7 +6,9 @@ const Navigation = () => {
    return (
     <>
     <NavigationContainer>
-        <NavigationLogo to="/"> <h2>Sckeduler</h2></NavigationLogo>
+        <NavigationLogo to="/"> <h2>Sckeduler</h2>
+        <span>&#232423;</span>
+        </NavigationLogo>
         <NavigationBody>
             <NavigationLink to='/schedule'>Schedules</NavigationLink>
             <NavigationLink to='/create'>Create Schedule</NavigationLink>
