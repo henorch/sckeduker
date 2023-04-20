@@ -16,7 +16,7 @@ const Navigation = () => {
             <NavigationLink to='/create'>Create new Schedule</NavigationLink>
             { !currentUser  ? 
                 <NavigationLink to='/auth'>Sign In</NavigationLink> :
-                <NavigationLink to='/auth'>Sign Up</NavigationLink> }
+                <NavigationLink to='/auth'>Sign out</NavigationLink> }
             <NavigationLink to='/home'>People using scheduler</NavigationLink>
         </NavigationBody>
     </NavigationContainer>
