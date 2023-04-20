@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SignInContainer, ButtonContainer, containerHeader2 } from  './sign-in.styles';
 
 import { signWithGooglePopup,
@@ -8,40 +8,59 @@ import { signWithGooglePopup,
 
 import FormInput from "../Form/form.components";
 import Button from "../button/button.component";
-import { UserContext } from "../../context/user.context";
+ import { UserContext } from "../../context/user.context";
 import { useContext } from "react";
+import { LocationContext } from "../../context/location.context";
 
 const defaultFieldVale = {
     email:"",
     password:"",
 }
 
-
 const SignIn = ()=>{
+    const { currentLocation, setCurrentLocation } = useContext(LocationContext)
+      
+    // const [ location, setLocation ] = useState(null)
+      
 
-    const [ formField, setFormField] = useState(defaultFieldVale);
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(position => {
+            const { coords } = position;
+            const newUserPosition = [
+                coords.latitude,
+                coords.longitude
+            ];
+            setCurrentLocation(newUserPosition)
+        })
+    }, [])
 
-    const { email, password} = formField;
+
+    const [ formField, setFormField ] = useState(defaultFieldVale);
+
+    
+    const { email, password } = formField;
 
     const {setCurrentUser} = useContext(UserContext);
 
     const resetFormField = () => setFormField(defaultFieldVale)
+
     
+     
+
+
     const SignInWithGoogle = async () => {
         const {user} = await signWithGooglePopup();
         await createUserDocumentFromAuth(user)
-        console.log(user);
         setCurrentUser(user)
     }
     
     const handleSubmit = async  (e) => {
         e.preventDefault();
-        console.log("hello");
         
         try {
-            const { user } = await signAuthUserEmailandPassword(email,password);
+            const { user } = await signAuthUserEmailandPassword(email, password);
             setCurrentUser(user)
-           resetFormField()
+            resetFormField()
             }  
         catch (error) {
             console.log("error", error);
@@ -80,9 +99,10 @@ const SignIn = ()=>{
                         
                 <ButtonContainer>
                     <Button type="submit">SIGN IN</Button>
-                    <Button buttonType="google" onClick={SignInWithGoogle}>GOOGLE SIGN-IN</Button>
+                    <Button type="button" buttonType="google" onClick={SignInWithGoogle}>GOOGLE SIGN-IN</Button>
                 </ButtonContainer>
             </form>
+            
         </SignInContainer>
     )
 }

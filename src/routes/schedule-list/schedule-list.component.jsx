@@ -8,10 +8,10 @@ import { ScheduleContext } from "../../context/schedule.context";
 
 const SchdeuleList = () => {
     const { schedules }  = useContext(ScheduleContext);
-    console.log(schedules);
+
     return(
         <div>
-            <h1>My schedules</h1>
+            {schedules.length != 0 && <h1>My schedules</h1>}
             {
             schedules.length == 0 ? <EmptySchedule>You do not have any schedule
             <Button buttonType="inverted">CLICK HERE TO START</Button>

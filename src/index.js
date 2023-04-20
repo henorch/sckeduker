@@ -5,14 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'
 import { ScheduleProvider } from './context/schedule.context';
+import { UserProvider } from './context/user.context';
+import { LocationProvider } from './context/location.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ScheduleProvider>
-        <App />
-      </ScheduleProvider>
+      <UserProvider>
+        <ScheduleProvider>
+          <LocationProvider>
+            <App />
+          </LocationProvider>
+       </ScheduleProvider>
+       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

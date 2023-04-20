@@ -1,5 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import './home.styles.css'
+import { useContext } from "react";
+import { LocationContext } from "../../context/location.context";
 
 const position = [9.0820, 8.6753]
 
@@ -7,7 +9,7 @@ const LOCATIONS = [
     {
         "id":1,
         "place": "Lagos",
-        "position": [6.5244, 3.3792]
+        "position": [7.5244, 4.3792]
     },
     {
         "id":2,
@@ -16,8 +18,20 @@ const LOCATIONS = [
     }
 ]
 
+const addToLocation = (currentUserLocation) => LOCATIONS.push(currentUserLocation); 
 
 const Home = () => {
+
+    const { currentLocation } = useContext(LocationContext);
+    const me = { "id" : 3,
+             "place": "ogun",
+            "position": currentLocation};
+        
+    addToLocation(me);
+
+    console.log(me.position);
+
+    
     return(
         <div className="leaflet-container">
         <MapContainer center={position} zoom={6} 
