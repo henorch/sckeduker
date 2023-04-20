@@ -1,10 +1,17 @@
 import styled from "styled-components";
+import { device } from "../../utils/breakpoint";
 
 
 export const SignUpContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width:380px;
+    
+    @media ${device.tablet}{
+        width:250px
+    }
+    @media ${device.laptop}{
+        width:380px;
+    }
 `
 
 export const h2 = styled.h2`

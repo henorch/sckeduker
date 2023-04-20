@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { SignInContainer, ButtonContainer, containerHeader2 } from  './sign-in.styles';
 
-
 import { signWithGooglePopup,
-    // signAuthUSerEmailandPassword,
-    // createUserDocumentFromAuth 
+    signAuthUserEmailandPassword,
+    createUserDocumentFromAuth
 } from "../../utils/firebase/firebase.js";
 
 import FormInput from "../Form/form.components";
@@ -30,7 +29,8 @@ const SignIn = ()=>{
     
     const SignInWithGoogle = async () => {
         const {user} = await signWithGooglePopup();
-        // await createUserDocumentFromAuth(user)
+        await createUserDocumentFromAuth(user)
+        console.log(user);
         setCurrentUser(user)
     }
     
@@ -38,14 +38,14 @@ const SignIn = ()=>{
         e.preventDefault();
         console.log("hello");
         
-        // try {
-        //     const { user } = await signAuthUSerEmailandPassword(email,password);
-        //     setCurrentUser(user)
-        //    resetFormField()
-        //     }  
-        // catch (error) {
-        //     console.log("error", error);
-        // }
+        try {
+            const { user } = await signAuthUserEmailandPassword(email,password);
+            setCurrentUser(user)
+           resetFormField()
+            }  
+        catch (error) {
+            console.log("error", error);
+        }
     }
     const handleOnChange = (e) => {
         const { name, value} = e.target;

@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import './sign-up.styles.jsx';
-import { createAuthUSerEmailandPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
+import { createAuthUSerEmailandPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.js";
 import { UserContext } from "../../context/user.context";
 import FormInput from "../Form/form.components";
 import Button from "../button/button.component";

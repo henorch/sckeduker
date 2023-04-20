@@ -12,7 +12,7 @@ function App() {
   return <Routes>
     <Route path='/' element={<Navigation/>}>
         <Route path='home' element={<Home/>}/>
-        <Route path='schedule' element={<SchdeuleList/>}/>
+        <Route index element={<SchdeuleList/>}/>
         <Route path='create' element={<CreateSchedule/>}/>
         <Route path='auth' element={<AuthComponent/>}/>
     </Route>

@@ -6,15 +6,11 @@ export const NavigationContainer = styled.div`
     width:100%;
     height:80px;
     display:flex;
-    z-index: 2;
     flex-direction: column;
     justify-content: space-between;
     margin-botton:15px;
     
-    @media ${device.mobileS}{
-        flex-direction: column;
-
-    }
+   
     @media ${device.tablet}{
         flex-direction: row;
     }
@@ -23,7 +19,7 @@ export const NavigationContainer = styled.div`
 `
 
 export const NavigationLogo = styled(Link)`
-    width: 59vh;
+    width: 20vh;
     height:100%;
     padding:10px;
     display: flex;
@@ -45,13 +41,15 @@ export const NavigationBody = styled.div`
     justify-content: flex-end;
     align-items: flex-start;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     z-index:1;
     background: white;
 
     @media ${device.tablet}{
         flex-direction: row;
         align-items: center;
+        text-align: center;
+        line-height: 70%;
         height: 100%;
         border: none;
         width: 50%;
@@ -59,10 +57,7 @@ export const NavigationBody = styled.div`
     
 `
 
-export const MenuIcon = styled.div`
-    width: 50%;
-    height: 100%;
-`
+
 var mobile = styled(NavigationBody)`
     width:50%;
 `

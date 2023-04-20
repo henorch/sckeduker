@@ -5,6 +5,8 @@ import { CreateContainer, CreateInput } from "./create.styles";
 
 const CreateSchedule = () => {
     return(
+        <>
+        <h1>Create a Schedule</h1>
         <CreateContainer>
         <Calendar/>
         <CreateInput>
@@ -18,6 +20,7 @@ const CreateSchedule = () => {
           
         </CreateInput>
         </CreateContainer>
+        </>
     )
 }
 export default CreateSchedule;

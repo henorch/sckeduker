@@ -7,12 +7,12 @@ const Navigation = () => {
     <>
     <NavigationContainer>
         <NavigationLogo to="/"> <h2>Sckeduler</h2>
-        <span>&#232423;</span>
         </NavigationLogo>
         <NavigationBody>
-            <NavigationLink to='/schedule'>Schedules</NavigationLink>
-            <NavigationLink to='/create'>Create Schedule</NavigationLink>
+            <NavigationLink to='/'>My Schedules</NavigationLink>
+            <NavigationLink to='/create'>Create new Schedule</NavigationLink>
             <NavigationLink to='/auth'>Sign In</NavigationLink>
+            <NavigationLink to='/home'>People using scheduler</NavigationLink>
         </NavigationBody>
     </NavigationContainer>
     <Outlet/>
