@@ -17,7 +17,8 @@ import {
   collection,
   writeBatch,
   query,
-  getDocs
+  getDocs,
+  deleteDoc
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -55,15 +56,29 @@ const firebaseConfig = {
     })
   }
  
+  //this line of code delete a doc from firestore
+  export const deleteSchedule = async (docTodelete) => {
+    const deleteRef = doc(db, 'schedule', docTodelete)
+    const deleteSnapShot = await deleteDoc(deleteRef)
+    if (!deleteSnapShot) return ;
+
+    return  getMySchedule()
+  }
 
   export const getMySchedule =  async () => {
     const schSnapRef = collection(db, "schedule");
-    //const q = query(schSnapRef)
     const schedules = [];
 
     const querySnapShot = await getDocs(schSnapRef);
     querySnapShot.forEach(doc => {
-      schedules.push(doc.data())
+      const { title, date, description} = doc.data();
+      const scheduleInfo = {
+        "id": doc.id,
+        "title": title,
+        "date": date,
+        "description": description
+      }
+      schedules.push(scheduleInfo)
     })
    return schedules;
   }

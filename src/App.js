@@ -13,7 +13,6 @@ import { UserContext } from './context/user.context';
 
 function App() {
   const { currentUser } = useContext(UserContext)
-  console.log(currentUser);
 
   return <Routes>
               <Route path='/' element={<Navigation/>}>

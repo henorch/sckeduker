@@ -9,7 +9,7 @@ import { getMySchedule } from "../../utils/firebase/firebase";
 
 const SchdeuleList = () => {
     const { schedules }  = useContext(ScheduleContext);
-    
+
     
 
     return(
@@ -22,7 +22,9 @@ const SchdeuleList = () => {
             : 
             Object.keys(schedules).map((title) => {
                 const scheduled = schedules[title];
-                return <ScheduleComponent key={title} title={title} schedule={scheduled}/>
+                const id = scheduled["id"]
+               
+                return <ScheduleComponent key={id} title={title} schedule={scheduled}/>
             })           
         }     
         </div>

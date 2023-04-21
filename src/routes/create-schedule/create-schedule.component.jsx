@@ -32,7 +32,6 @@ const CreateSchedule = () => {
             description: description,
             date: date
         }
-        console.log(scheduleToSave);
         await createNewSchedule(scheduleToSave)
     }
     return(
