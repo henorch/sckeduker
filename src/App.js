@@ -6,12 +6,14 @@ import SchdeuleList from './routes/schedule-list/schedule-list.component';
 import Home from './routes/home/home.component';
 import CreateSchedule from './routes/create-schedule/create-schedule.component';
 import AuthComponent from './routes/auth/auth_component';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { UserContext } from './context/user.context';
 
 
 
 function App() {
-
+  const { currentUser } = useContext(UserContext)
+  console.log(currentUser);
 
   return <Routes>
               <Route path='/' element={<Navigation/>}>

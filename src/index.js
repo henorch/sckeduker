@@ -7,10 +7,13 @@ import { BrowserRouter } from 'react-router-dom'
 import { ScheduleProvider } from './context/schedule.context';
 import { UserProvider } from './context/user.context';
 import { LocationProvider } from './context/location.context';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
+  <Provider store={store}>
     <BrowserRouter>
       <UserProvider>
         <ScheduleProvider>
@@ -20,6 +23,7 @@ root.render(
        </ScheduleProvider>
        </UserProvider>
     </BrowserRouter>
+  </Provider>
   </>
 );
 

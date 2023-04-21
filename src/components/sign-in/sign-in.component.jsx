@@ -18,30 +18,25 @@ const defaultFieldVale = {
 }
 
 const SignIn = ()=>{
-    const { currentLocation, setCurrentLocation } = useContext(LocationContext)
-      
-    // const [ location, setLocation ] = useState(null)
-      
+    const [ formField, setFormField ] = useState(defaultFieldVale);
+    const {setCurrentUser, setCurrentUserLocation} = useContext(UserContext);
 
-    useEffect(() => {
+    // Destructuring to geta full  details
+    const { email, password } = formField;
+
+   const getLocation = () => {
         navigator.geolocation.getCurrentPosition(position => {
             const { coords } = position;
             const newUserPosition = [
                 coords.latitude,
                 coords.longitude
             ];
-            setCurrentLocation(newUserPosition)
+            setCurrentUserLocation(newUserPosition)
         })
-    }, [])
+   }
 
-
-    const [ formField, setFormField ] = useState(defaultFieldVale);
 
     
-    const { email, password } = formField;
-
-    const {setCurrentUser} = useContext(UserContext);
-
     const resetFormField = () => setFormField(defaultFieldVale)
 
     
@@ -52,6 +47,7 @@ const SignIn = ()=>{
         const {user} = await signWithGooglePopup();
         await createUserDocumentFromAuth(user)
         setCurrentUser(user)
+        getLocation()
     }
     
     const handleSubmit = async  (e) => {

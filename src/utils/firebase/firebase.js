@@ -1,23 +1,23 @@
 import { initializeApp } from 'firebase/app';
 import {
-getAuth,
-signInWithRedirect,
-signInWithPopup,
-GoogleAuthProvider,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-signOut,
+  getAuth,
+  signInWithRedirect,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth'
 
 import {
-getFirestore,
-doc,
-getDoc,
-setDoc,
-collection,
-writeBatch,
-query,
-getDocs
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -43,35 +43,34 @@ const firebaseConfig = {
 
   export const db = getFirestore();
 
-  export const addCollectionAndDocument = async (collectionKey, objectToAdd) => {
-    const collectionRef = collection(db, collectionKey);
-    const batch = writeBatch(db);
 
-    objectToAdd.forEach(object => {
+  // below code for adding schedule to firestore
+  export const createNewSchedule = async (newSchedule) => {
+    const scheduleRef = doc(collection(db, 'schedule'))
+    const {title, description, date } = newSchedule;
+    await setDoc(scheduleRef, {
+      title: title,
+      description: description,
+      date: date
+    })
+  }
+ 
 
-      const docRef = doc(collectionRef, object.title.toLowerCase());
-      batch.set(docRef, object)
-    });
+  export const getMySchedule =  async () => {
+    const schSnapRef = collection(db, "schedule");
+    //const q = query(schSnapRef)
+    const schedules = [];
 
-    await batch.commit()
-    console.log("done");
+    const querySnapShot = await getDocs(schSnapRef);
+    querySnapShot.forEach(doc => {
+      schedules.push(doc.data())
+    })
+   return schedules;
   }
 
-export const getCategoriesAndDocument = async () => {
-  const collectionRef = collection(db, 'categories');
-  const q = query(collectionRef);
 
-  const querySnapShot = await getDocs(q);
 
-  const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
-    const { title, items } = docSnapShot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {})
-
-  return categoryMap;
-}
-
+  // Below code for adding user to firestore and creating firebase
   export const createUserDocumentFromAuth = async (userAuth, 
     additionalInformation = {}) => {
     if(!userAuth) return;
@@ -103,7 +102,7 @@ export const getCategoriesAndDocument = async () => {
   }
 
 
-  export const signAuthUserEmailandPassword = async (email,password) => {
+  export const signAuthUserEmailandPassword = async (email, password) => {
     if(!email || !password) return;
 
     return await signInWithEmailAndPassword(auth, email, password)

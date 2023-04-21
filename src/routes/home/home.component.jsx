@@ -19,19 +19,17 @@ const LOCATIONS = [
     }
 ]
 
-const addToLocation = (currentUserLocation) => LOCATIONS.push(currentUserLocation); 
-
+const addToLocation = (currentUserLocation) => {
+    if (currentUserLocation){
+        LOCATIONS.push(currentUserLocation); 
+    }
+    return LOCATIONS;
+}
 const Home = () => {
-    const [ activeLocation, setActiveLocation ] = useState(null);
-    const { currentLocation } = useContext(LocationContext);
-    const { currentUser } = useContext(UserContext);
-    const me = { "id" : 3,
-            user: currentUser.email,
-            "position": currentLocation};
-        
-    addToLocation(me);
-    console.log(me);
-    console.log(LOCATIONS);
+    const [ activeLocation, setActiveLocation ] = useState();
+    const { currentUser, currentUserLocation } = useContext(UserContext);
+   
+   
 
     
     return(

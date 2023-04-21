@@ -3,11 +3,14 @@ import Button from "../../components/button/button.component";
 import ScheduleComponent from "../../components/schedule_components/schedule_components";
 import { EmptySchedule } from "./schedule-list.styles";
 import { ScheduleContext } from "../../context/schedule.context";
+import { getMySchedule } from "../../utils/firebase/firebase";
 
 
 
 const SchdeuleList = () => {
     const { schedules }  = useContext(ScheduleContext);
+    
+    
 
     return(
         <div>
@@ -17,8 +20,10 @@ const SchdeuleList = () => {
             <Button buttonType="inverted">CLICK HERE TO START</Button>
             </EmptySchedule> 
             : 
-            schedules.map((schedule) =>  <ScheduleComponent key={schedule.id} schedule={schedule}/>
-            )
+            Object.keys(schedules).map((title) => {
+                const scheduled = schedules[title];
+                return <ScheduleComponent key={title} title={title} schedule={scheduled}/>
+            })           
         }     
         </div>
     )

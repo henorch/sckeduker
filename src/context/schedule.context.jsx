@@ -1,32 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createContext } from "react";
+import { getMySchedule } from "../utils/firebase/firebase";
 
-const SCHEDULES = [
-    // {
-    //     "id": 1,
-    //     "title": "Engaging the title winner",
-    //     "description": " We plan to engage the title winner for a comprehensive interview and communication on his success"
-    // },
-    // {
-    //     "id":2,
-    //     "title": "Rational opinion observation",
-    //     "description": " A collection of 23 randomly selected student a tested don their rartional opinion"
-    // },
-    // {
-    //     "id":3,
-    //     "title": "Review the chemistry",
-    //     "description": " An intutive evaluation of the chemistry of lobe is carried out for the programe"
-    // }
-]
 
 
 export const ScheduleContext =  new createContext({
-    schedules: SCHEDULES,
+    schedules: [],
 
 })
 
+console.log(`in schedule ${getMySchedule()}`);
+
+
 export const ScheduleProvider = ({ children }) => {
-    const [schedules, setSchedule] = useState(SCHEDULES);
+    const [schedules, setSchedule] = useState([]);
+
+    console.log(schedules);
+    useEffect(()=> {
+        const getAllSchedule = async () => {
+            const allSchedule = await getMySchedule();
+            setSchedule(allSchedule)
+        }
+        getAllSchedule()
+    }, [])
+    console.log(schedules);
+
     const value = { schedules, setSchedule};
     return <ScheduleContext.Provider value={value}>{children}</ScheduleContext.Provider>
 } 
