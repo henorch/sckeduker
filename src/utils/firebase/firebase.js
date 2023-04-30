@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
   signOut,
 } from 'firebase/auth'
 
@@ -16,9 +17,11 @@ import {
   setDoc,
   collection,
   writeBatch,
+  addDoc,
   query,
   getDocs,
-  deleteDoc
+  deleteDoc,
+  where
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -46,68 +49,96 @@ const firebaseConfig = {
 
 
   // below code for adding schedule to firestore
-  export const createNewSchedule = async (newSchedule) => {
-    const scheduleRef = doc(collection(db, 'schedule'))
-    const {title, description, date } = newSchedule;
-    await setDoc(scheduleRef, {
-      title: title,
-      description: description,
-      date: date
-    })
-  }
- 
-  //this line of code delete a doc from firestore
-  export const deleteSchedule = async (docTodelete) => {
-    const deleteRef = doc(db, 'schedule', docTodelete)
-    const deleteSnapShot = await deleteDoc(deleteRef)
-    if (!deleteSnapShot) return ;
 
-    return  getMySchedule()
-  }
 
   export const getMySchedule =  async () => {
     const schSnapRef = collection(db, "schedule");
+    const q = query(schSnapRef)
     const schedules = [];
 
-    const querySnapShot = await getDocs(schSnapRef);
+    const querySnapShot = await getDocs(q);
     querySnapShot.forEach(doc => {
-      const { title, date, description} = doc.data();
-      const scheduleInfo = {
-        "id": doc.id,
-        "title": title,
-        "date": date,
-        "description": description
-      }
-      schedules.push(scheduleInfo)
+      schedules.push(doc.data())
     })
    return schedules;
   }
 
-
+ 
+  
 
   // Below code for adding user to firestore and creating firebase
   export const createUserDocumentFromAuth = async (userAuth, 
     additionalInformation = {}) => {
     if(!userAuth) return;
     
-    const userDocRef = doc(db, 'user', userAuth.uid)
+    
+    const userDocRef = doc(db, 'user', userAuth.uid) 
 
     const userSnapshot = await getDoc(userDocRef)
     if(!userSnapshot.exists()){
-        const { displayName, email} = userAuth;
-        const createdAt = new Date();
+
+      const { displayName, email } = userAuth;
+      const createdAt = new Date();
         try{
-            await setDoc(userDocRef, {
-                displayName,
-                email,
-                createdAt,
-                ...additionalInformation
-            });
+          await setDoc(userDocRef, {
+            displayName,
+            email,
+            createdAt
+          });
         } catch(error){
             console.log('error', error.message);
         }
     }
     return userDocRef
+  }
+
+
+  export const getDocPerUser = async (currentUser) => {
+    const path = `schedules/${currentUser}/Post`
+    const schSnapRef = collection(db, path);
+    const q = query(schSnapRef)
+    const schedules = [];
+    
+    const querySnapShot = await getDocs(q);
+    querySnapShot.forEach(doc => {
+      schedules.push(doc.data())
+    })
+   return schedules;
+ 
+  }
+  
+
+
+
+
+  export const onAuthStateChangedListerner = (callback) => 
+  onAuthStateChanged(auth, callback);
+
+
+// create a document as each user post
+
+export const createSchedulePerUser = async (currentUser, scheduleToSave) => {
+  const path = `schedules/${currentUser.uid}/Post/`
+  const scheduleRef = collection(db, path);
+    try {
+      const { title, description, date } = scheduleToSave;
+      const createdAt = new Date();
+      await addDoc(scheduleRef, {
+        title,
+        description,
+        date,
+        createdAt,
+      });
+  } catch (err){
+    console.log(err, err.message);
+  }
+}
+
+ 
+
+  export const deleteSchedule = async (scheduleToDelete) => {
+    const schedeToDeleteRef = doc(db, 'schedule',  scheduleToDelete);
+    const deleteSchedule = await deleteDoc(schedeToDeleteRef)
   }
 
   export const createAuthUSerEmailandPassword = async (email,password) => {

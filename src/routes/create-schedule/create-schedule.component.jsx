@@ -1,9 +1,9 @@
 import Calendar from "react-calendar"
 import 'react-calendar/dist/Calendar.css';
 import { CreateContainer, CreateInput } from "./create.styles";
-import { useState } from "react";
-import { createNewSchedule } from "../../utils/firebase/firebase";
-
+import { useContext, useState } from "react";
+import { createUserDocumentFromAuth, createSchedulePerUser, createUserDocBaseOnCurrentUser} from "../../utils/firebase/firebase";
+import { UserContext } from "../../context/user.context";
 
 const DefaultSchedule = {
     title: "",
@@ -12,6 +12,7 @@ const DefaultSchedule = {
 
 
 const CreateSchedule = () => {
+    const { currentUser } = useContext(UserContext);
     const [ newSchedule, setNewSchedule] = useState(DefaultSchedule);
     const [ date, setDate ] = useState( new Date());
 
@@ -32,8 +33,10 @@ const CreateSchedule = () => {
             description: description,
             date: date
         }
-        await createNewSchedule(scheduleToSave)
+        console.log(scheduleToSave);
+        await createSchedulePerUser(currentUser, scheduleToSave);
     }
+
     return(
         <form onSubmit={handleOnSubmit}>
         <h1>Create a Schedule</h1>

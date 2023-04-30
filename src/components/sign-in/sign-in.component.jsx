@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { SignInContainer, ButtonContainer, containerHeader2 } from  './sign-in.styles';
-
 import { signWithGooglePopup,
     signAuthUserEmailandPassword,
     createUserDocumentFromAuth
@@ -8,9 +7,9 @@ import { signWithGooglePopup,
 
 import FormInput from "../Form/form.components";
 import Button from "../button/button.component";
- import { UserContext } from "../../context/user.context";
 import { useContext } from "react";
 import { LocationContext } from "../../context/location.context";
+import { UserContext } from "../../context/user.context";
 
 const defaultFieldVale = {
     email:"",
@@ -19,7 +18,7 @@ const defaultFieldVale = {
 
 const SignIn = ()=>{
     const [ formField, setFormField ] = useState(defaultFieldVale);
-    const {setCurrentUser, setCurrentUserLocation} = useContext(UserContext);
+    const {setCurrentUserLocation} = useContext(UserContext);
 
     // Destructuring to geta full  details
     const { email, password } = formField;
@@ -44,9 +43,7 @@ const SignIn = ()=>{
 
 
     const SignInWithGoogle = async () => {
-        const {user} = await signWithGooglePopup();
-        await createUserDocumentFromAuth(user)
-        setCurrentUser(user)
+        await signWithGooglePopup();
         getLocation()
     }
     
@@ -55,7 +52,6 @@ const SignIn = ()=>{
         
         try {
             const { user } = await signAuthUserEmailandPassword(email, password);
-            setCurrentUser(user)
             resetFormField()
             }  
         catch (error) {

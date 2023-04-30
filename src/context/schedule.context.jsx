@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
-import { deleteSchedule, getMySchedule } from "../utils/firebase/firebase";
+import { auth, deleteSchedule, getDocPerUser, getMySchedule } from "../utils/firebase/firebase";
+import { UserContext } from "./user.context";
+import { current } from "@reduxjs/toolkit";
+
 
 
 
@@ -13,12 +16,14 @@ export const ScheduleContext =  new createContext({
 
 export const ScheduleProvider = ({ children }) => {
     const [schedules, setSchedule] = useState([]);
-
-
+    const { currentUser } = useContext(UserContext)
+     
     useEffect(()=> {
         const getAllSchedule = async () => {
             const allSchedule = await getMySchedule();
-            setSchedule(allSchedule)
+            const myDocs = await getDocPerUser(auth.currentUser?.uid);
+            setSchedule(myDocs)
+            console.log(schedules);
         }
         getAllSchedule()
     }, [schedules])
