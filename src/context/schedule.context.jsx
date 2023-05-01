@@ -22,8 +22,7 @@ export const ScheduleProvider = ({ children }) => {
         const getAllSchedule = async () => {
             const allSchedule = await getMySchedule();
             const myDocs = await getDocPerUser(auth.currentUser?.uid);
-            setSchedule(myDocs)
-            console.log(schedules);
+            setSchedule(myDocs);
         }
         getAllSchedule()
     }, [schedules])

@@ -17,7 +17,7 @@ const SchdeuleList = () => {
     }
 
 
-   
+   console.log(schedules);
     return(
         <div>
             {schedules.length != 0 && <h1>My schedules</h1>}
@@ -26,10 +26,10 @@ const SchdeuleList = () => {
             <Button onClick={goToCreate} buttonType="inverted">CLICK HERE TO START</Button>
             </EmptySchedule> 
             : 
-            Object.keys(schedules).map((title) => {
+            Object.keys(schedules).map(( title) => {
                 const scheduled = schedules[title];
-                const id = scheduled[1]
-                return <ScheduleComponent key={id} title={title} schedule={scheduled}/>
+                // const id = schedules[uid];
+                return <ScheduleComponent key={title} title={title} schedule={scheduled}/>
             })           
         }     
         </div>

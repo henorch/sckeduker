@@ -5,6 +5,7 @@ const ScheduleComponent = ({schedule}) => {
       const { id, title, description } = schedule;
       const handleDelete =  async () => {
             await deleteSchedule(id)
+            console.log("hello");
       }
     return (
         <ScheduleHolder>

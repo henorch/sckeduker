@@ -11,15 +11,16 @@ import { UserContext } from './context/user.context';
 
 
 
+
 function App() {
   const { currentUser } = useContext(UserContext)
 
   return <Routes>
               <Route path='/' element={<Navigation/>}>
-              <Route path='home' element={<Home/>}/>
-              <Route index element={<SchdeuleList/>}/>
-              <Route path='create' element={<CreateSchedule/>}/>
-              <Route path='auth' element={<AuthComponent/>}/>
+               <Route path='home' element={<Home/>}/>
+              <Route path='schedule' element={<SchdeuleList/>}/>
+              <Route path='create' element={<CreateSchedule/>}/> 
+              <Route index element={<AuthComponent/>}/> 
           </Route>
     </Routes>
 }

@@ -101,10 +101,18 @@ const firebaseConfig = {
     
     const querySnapShot = await getDocs(q);
     querySnapShot.forEach(doc => {
-      schedules.push(doc.data())
+      
+      const { title, description, date } = doc.data();
+      const  id  = doc.ref.id;
+      const userDoc = {
+        title,
+        description,
+        date,
+        id
+      }
+      schedules.push(userDoc)
     })
    return schedules;
- 
   }
   
 
