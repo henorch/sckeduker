@@ -92,6 +92,35 @@ const firebaseConfig = {
     return userDocRef
   }
 
+ 
+
+  export const userLocation = async (currentUser) => {
+    const user_location = [];
+    const { email, uid } = currentUser;
+    navigator.geolocation.getCurrentPosition(position => {
+      const { coords } = position;
+      const user_position =  [
+        coords.latitude,
+        coords.longitude,
+        
+      ]
+      user_location.push(user_position)
+    });
+    
+
+    const locaRef = doc(db, 'userlocations', uid);
+    const locSnapShot = await getDoc(locaRef);
+    const {lat, long} = user_location;
+      try {
+        await setDoc(locaRef, {
+        email,
+         ...user_location,
+        })
+      } catch (err) {
+        console.log(err, err.message);
+      }
+    }
+    
 
   export const getDocPerUser = async (currentUser) => {
     const path = `schedules/${currentUser}/Post`

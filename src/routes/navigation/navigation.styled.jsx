@@ -19,10 +19,10 @@ export const NavigationContainer = styled.div`
 `
 
 export const NavigationLogo = styled(Link)`
-    width: 100%;
     height:70%;
     padding:10px;
     display: flex;
+    flex: 2;
     justify-content: space-between;
     align-items: center;
 
@@ -48,19 +48,19 @@ export const NavigationBody = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: flex-start;
+    align-items: center;
+    flex:2;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     z-index:1;
     display:none;
-    background: white;
 
     @media ${device.tablet}{
+        display:flex;
         flex-direction: row;
         align-items: center;
         text-align: center;
         line-height: 70%;
-        display:block;
         height: 100%;
         border: none;
         width: 50%;
@@ -70,20 +70,15 @@ export const NavigationBody = styled.div`
 export const NavigationBodyMobile = styled.div`
     display: flex;
     flex-direction: column;
-    height:100px;
+    height:100vh;
+    margin-top: -50px;
     justify-content: flex-end;
     align-items: flex-start;
     z-index:1;
     background:green;
 
     @media ${device.tablet}{
-        flex-direction: row;
-        align-items: center;
-        text-align: center;
-        line-height: 70%;
-        height: 100%;
-        border: none;
-        width: 50%;
+        display:none
     }
     
 `

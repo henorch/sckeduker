@@ -34,17 +34,17 @@ const SignIn = ()=>{
         })
    }
 
+   
 
     
     const resetFormField = () => setFormField(defaultFieldVale)
 
     
-     
+    
 
 
     const SignInWithGoogle = async () => {
         await signWithGooglePopup();
-        getLocation()
     }
     
     const handleSubmit = async  (e) => {
@@ -53,6 +53,7 @@ const SignIn = ()=>{
         try {
             const { user } = await signAuthUserEmailandPassword(email, password);
             resetFormField()
+            getLocation()
             }  
         catch (error) {
             console.log("error", error);
