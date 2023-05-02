@@ -110,7 +110,6 @@ const firebaseConfig = {
 
     const locaRef = doc(db, 'userlocations', uid);
     const locSnapShot = await getDoc(locaRef);
-    const {lat, long} = user_location;
       try {
         await setDoc(locaRef, {
         email,
@@ -179,6 +178,19 @@ export const createSchedulePerUser = async (currentUser, scheduleToSave) => {
     await deleteDoc(schedeToDeleteRef)
     
   }
+
+  export const getUserLocation = async () => {
+    const locationRef = collection(db, 'userlocations');
+    const userLocation = [];
+    const locationSnapShop = await getDocs(locationRef);
+    
+    locationSnapShop.forEach((doc) => {
+      userLocation.push(doc.data())
+    })
+    return userLocation;
+  }
+
+  
 
   export const createAuthUSerEmailandPassword = async (email,password) => {
     if(!email || !password) return;

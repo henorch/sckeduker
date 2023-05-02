@@ -4,7 +4,6 @@ import ScheduleComponent from "../../components/schedule_components/schedule_com
 import { EmptySchedule } from "./schedule-list.styles";
 import { ScheduleContext } from "../../context/schedule.context";
 import { useNavigate } from "react-router-dom";
-import { getDocPerUser } from "../../utils/firebase/firebase";
 import { UserContext } from "../../context/user.context";
 
 

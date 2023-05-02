@@ -25,6 +25,8 @@ const CreateSchedule = () => {
         })
     }
 
+    const resetFormField = () => setNewSchedule(DefaultSchedule)
+
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         
@@ -33,8 +35,8 @@ const CreateSchedule = () => {
             description: description,
             date: date
         }
-        console.log(scheduleToSave);
         await createSchedulePerUser(currentUser, scheduleToSave);
+        resetFormField()
     }
 
     return(
