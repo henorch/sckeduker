@@ -39,7 +39,7 @@ const CreateSchedule = () => {
 
     return(
         <form onSubmit={handleOnSubmit}>
-        <h1>Create a Schedule</h1>
+        <h1 style={{marginTop:'15vh'}}>Create a Schedule</h1>
         <CreateContainer>
         <Calendar
             value={date}

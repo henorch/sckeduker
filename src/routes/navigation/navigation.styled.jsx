@@ -9,6 +9,10 @@ export const NavigationContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
     margin-botton:15px;
+    position:fixed;
+    left:0;
+    top:0;
+    background:white;
     
    
     @media ${device.tablet}{ 
@@ -74,7 +78,7 @@ export const NavigationBodyMobile = styled.div`
     margin-top: -50px;
     justify-content: flex-end;
     align-items: flex-start;
-    z-index:1;
+    z-index:10;
     background:green;
 
     @media ${device.tablet}{

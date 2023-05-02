@@ -20,7 +20,7 @@ const SchdeuleList = () => {
    console.log(schedules);
     return(
         <div>
-            {schedules.length != 0 && <h1>My schedules</h1>}
+            {schedules.length != 0 && <h1 style={{marginTop:'15vh'}}>My schedules</h1>}
             {
             schedules.length == 0 ? <EmptySchedule>You do not have any schedule
             <Button onClick={goToCreate} buttonType="inverted">CLICK HERE TO START</Button>

@@ -8,6 +8,7 @@ export const ScheduleHolder = styled.div`
     display:flex;
     flex-direction: column;
     padding:10px;
+    border: 1px solid black;
     font-size: 1.3em;
     justify-content: space-between;
     box-shadow: 2px 2px 2px grey;
@@ -30,10 +31,10 @@ export const ButtonContainer = styled.div`
     display:flex;
     width: 40%;
     padding: 5px;
-    align-items: flex-start;
+    align-items: ;
     flex-direction: column;
     justify-content: space-between;
-    
+
     @media ${device.tablet} {
         flex-direction: row;
         height: 60px;

@@ -33,7 +33,7 @@ const Home = () => {
 
     
     return(
-        <div className="leaflet-container">
+        <div style={{marginTop:'15vh', zIndex: -2}} className="leaflet-container">
         <MapContainer center={position} zoom={6} 
         style={{height: "100vh"}}
         scrollWheelZoom={false}>
