@@ -173,9 +173,11 @@ export const createSchedulePerUser = async (currentUser, scheduleToSave) => {
 
  
 
-  export const deleteSchedule = async (scheduleToDelete) => {
-    const schedeToDeleteRef = doc(db, 'schedule',  scheduleToDelete);
-    const deleteSchedule = await deleteDoc(schedeToDeleteRef)
+  export const deleteSchedule = async (currentUser, scheduleToDelete) => {
+    const path = `schedules/${currentUser.uid}/Post/${scheduleToDelete}`
+    const schedeToDeleteRef = doc(db, path);
+    await deleteDoc(schedeToDeleteRef)
+    
   }
 
   export const createAuthUSerEmailandPassword = async (email,password) => {
