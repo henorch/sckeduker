@@ -7,12 +7,13 @@ export const ScheduleHolder = styled.div`
     width: 100%;
     display:flex;
     flex-direction: column;
-    padding:10px;
     border: 1px solid black;
     font-size: 1.3em;
+    overflow: hidden;
     justify-content: space-between;
     box-shadow: 2px 2px 2px grey;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
+    border-radius: 5px;
     align-items:center;
 
     @media ${device.tablet}{
@@ -22,8 +23,13 @@ export const ScheduleHolder = styled.div`
 
 export const SchedulerLink = styled(Link)`
     font-size: 1.1em;
+    margin-top:0px;
     display:flex;
     text-style:bold;
+    background: grey;
+    padding: 10px;
+    padding-left:50px;
+    text-style: bold;
     algin-items: center;
     width: 100%;
 `

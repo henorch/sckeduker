@@ -23,7 +23,7 @@ export const NavigationContainer = styled.div`
 `
 
 export const NavigationLogo = styled(Link)`
-    height:70%;
+    height:70px;
     padding:10px;
     display: flex;
     flex: 2;
@@ -75,7 +75,7 @@ export const NavigationBodyMobile = styled.div`
     display: flex;
     flex-direction: column;
     height:100vh;
-    margin-top: -50px;
+    margin-top: -20px;
     justify-content: flex-end;
     align-items: flex-start;
     z-index:10;

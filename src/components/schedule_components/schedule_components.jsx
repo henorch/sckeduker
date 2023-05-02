@@ -14,8 +14,11 @@ const ScheduleComponent = ({schedule}) => {
       }
     return (
         <ScheduleHolder>
-            <SchedulerLink>{title}</SchedulerLink>
-            <p>{description}</p>
+            <SchedulerLink><b>{title}</b></SchedulerLink>
+            <p style={{
+                padding: '10px',
+                fontStyle: "italic"
+            }}>{description}</p>
             <ButtonContainer>
             <Button buttonType="inverted">&#9998; Edit</Button>
             <Button onClick={() => handleDelete()} buttonType="inverted">&#10006; Revome</Button>

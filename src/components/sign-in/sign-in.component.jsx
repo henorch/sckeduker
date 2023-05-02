@@ -10,6 +10,7 @@ import Button from "../button/button.component";
 import { useContext } from "react";
 import { LocationContext } from "../../context/location.context";
 import { UserContext } from "../../context/user.context";
+import { useNavigate } from "react-router-dom";
 
 const defaultFieldVale = {
     email:"",
@@ -19,20 +20,25 @@ const defaultFieldVale = {
 const SignIn = ()=>{
     const [ formField, setFormField ] = useState(defaultFieldVale);
     const {setCurrentUserLocation} = useContext(UserContext);
+    const  navigate  = useNavigate();
+
+    const goToCreate = () => {
+        navigate("/")
+    }
 
     // Destructuring to geta full  details
     const { email, password } = formField;
 
-   const getLocation = () => {
-        navigator.geolocation.getCurrentPosition(position => {
-            const { coords } = position;
-            const newUserPosition = [
-                coords.latitude,
-                coords.longitude
-            ];
-            setCurrentUserLocation(newUserPosition)
-        })
-   }
+//    const getLocation = () => {
+//         navigator.geolocation.getCurrentPosition(position => {
+//             const { coords } = position;
+//             const newUserPosition = [
+//                 coords.latitude,
+//                 coords.longitude
+//             ];
+//             setCurrentUserLocation(newUserPosition)
+//         })
+//    }
 
    
 
@@ -53,7 +59,8 @@ const SignIn = ()=>{
         try {
             const { user } = await signAuthUserEmailandPassword(email, password);
             resetFormField()
-            getLocation()
+            goToCreate()
+            // getLocation()
             }  
         catch (error) {
             console.log("error", error);

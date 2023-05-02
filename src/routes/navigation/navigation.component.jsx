@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { NavigationContainer, 
     NavIcon,
     NavigationLogo, 
@@ -14,16 +14,23 @@ import { SignOutUser } from '../../utils/firebase/firebase';
 const Navigation = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const [isOpen, setIsOpen] = useState(false);
+    const  navigate  = useNavigate();
+
+    const goToAuth = () => {
+        navigate('/auth')
+    }
 
     const handleToggle = () => {
         setIsOpen(!isOpen)
     }
 
+   
 
     const signoutHandler = async () => {
         const resp = await SignOutUser();
         setCurrentUser(null)
         handleToggle()
+        goToAuth()
     }
    return (
     <>
@@ -38,26 +45,32 @@ const Navigation = () => {
         </div>
         {isOpen &&
         <NavigationBodyMobile>
-            <NavigationLink onClick={handleToggle} to='/schedule'>My Schedules</NavigationLink>
+            {currentUser ? <>
+            <NavigationLink onClick={handleToggle} to='/'>My Schedules</NavigationLink>
             <NavigationLink onClick={handleToggle} to='/create'>Create new Schedule</NavigationLink>
-            
-            { currentUser  ? 
-                <NavigationLink  as="span" to='/' onClick={signoutHandler}>
-                Sign Out
-              </NavigationLink >:
-                <NavigationLink to='/'>Sign In</NavigationLink> } 
             <NavigationLink onClick={handleToggle} to='/home'>People on scheduler</NavigationLink>
-        </NavigationBodyMobile>}
+            <NavigationLink  as="span" to="/auth" onClick={signoutHandler}> 
+                Sign Out
+              </NavigationLink >
+        </>
+        :
+        <>
+            
+                <NavigationLink to='/auth'>Sign In</NavigationLink> 
+               </> 
+                }
+           </NavigationBodyMobile>}
 
         <NavigationBody>
-            <NavigationLink to='/schedule'>My Schedules</NavigationLink>
+        { currentUser  ? <>
+            <NavigationLink to='/'>My Schedules</NavigationLink>
             <NavigationLink to='/create'>Create new Schedule</NavigationLink>
-            { currentUser  ? 
-                <NavigationLink  as="span" to='/' onClick={signoutHandler}>
-                Sign Out
-              </NavigationLink >:
-                <NavigationLink to='/'>Sign In</NavigationLink> }
             <NavigationLink to='/home'>People on scheduler</NavigationLink>
+            
+                <NavigationLink  as="span" to="/auth"  onClick={signoutHandler}>
+                Sign Out
+              </NavigationLink > </>:
+                <NavigationLink to='/auth'>Sign In</NavigationLink> }
         </NavigationBody>
     </NavigationContainer>
     <Outlet/>
