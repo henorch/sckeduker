@@ -55,7 +55,6 @@ const Navigation = () => {
         </>
         :
         <>
-            
                 <NavigationLink to='/auth'>Sign In</NavigationLink> 
                </> 
                 }
